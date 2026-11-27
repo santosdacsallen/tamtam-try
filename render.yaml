@@ -1,0 +1,101 @@
+services:
+  # Main API Web Service
+  - type: web
+    name: tamtam-api
+    env: php
+    buildCommand: composer install --no-dev --optimize-autoloader && php artisan config:cache && php artisan route:cache
+    startCommand: php artisan serve --host=0.0.0.0 --port=$PORT
+    envVars:
+      - key: APP_NAME
+        value: TamTam POS API
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        sync: false
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        sync: false
+      - key: DB_DATABASE
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: MAIL_MAILER
+        value: smtp
+      - key: MAIL_HOST
+        value: smtp.gmail.com
+      - key: MAIL_PORT
+        value: 587
+      - key: MAIL_USERNAME
+        sync: false
+      - key: MAIL_PASSWORD
+        sync: false
+      - key: MAIL_ENCRYPTION
+        value: tls
+      - key: MAIL_FROM_ADDRESS
+        sync: false
+      - key: MAIL_FROM_NAME
+        value: TamTam POS API
+      - key: REPORT_EMAIL
+        value: devmaycry2000@gmail.com
+      - key: REPORT_TIMEZONE
+        value: Asia/Manila
+
+  # Cron Job for Scheduler (runs every minute)
+  - type: cron
+    name: tamtam-scheduler
+    env: php
+    schedule: "* * * * *"  # Every minute
+    buildCommand: composer install --no-dev --optimize-autoloader
+    startCommand: php artisan schedule:run
+    envVars:
+      - key: APP_NAME
+        value: TamTam POS API
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        sync: false
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        sync: false
+      - key: DB_DATABASE
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: MAIL_MAILER
+        value: smtp
+      - key: MAIL_HOST
+        value: smtp.gmail.com
+      - key: MAIL_PORT
+        value: 587
+      - key: MAIL_USERNAME
+        sync: false
+      - key: MAIL_PASSWORD
+        sync: false
+      - key: MAIL_ENCRYPTION
+        value: tls
+      - key: MAIL_FROM_ADDRESS
+        sync: false
+      - key: MAIL_FROM_NAME
+        value: TamTam POS API
+      - key: REPORT_EMAIL
+        value: devmaycry2000@gmail.com
+      - key: REPORT_TIMEZONE
+        value: Asia/Manila
